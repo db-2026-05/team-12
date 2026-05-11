@@ -35,4 +35,144 @@
 // ══════════════════════════════════════════════════════════════════
 
 
-// Вставте ваш DBML-код нижче 👇
+Table Coach {
+  id_coach int [pk]
+  full_name varchar
+  phone varchar
+  email varchar
+  birthday date
+  education varchar
+  address varchar
+  certification varchar
+}
+
+Table Specialization {
+  id_specialization int [pk]
+  name varchar
+}
+
+Table Coach_Specialization {
+  id_coach int [not null, ref: > Coach.id_coach]
+  id_specialization int [not null, ref: > Specialization.id_specialization]
+
+  indexes {
+    (id_coach, id_specialization) [pk]
+  }
+}
+
+Table Classes {
+  id_class int [pk]
+  name varchar
+}
+
+Table Coach_class {
+  id_class int [not null, ref: > Classes.id_class]
+  id_coach int [not null, ref: > Coach.id_coach]
+
+  indexes {
+    (id_class, id_coach) [pk]
+  }
+}
+
+Table Fitness_Club {
+  id_hub int [pk]
+  address varchar
+  work_phone varchar
+  work_hours varchar
+}
+
+Table Equipment {
+  id_equipment int [pk]
+  id_hub int [not null, ref: > Fitness_Club.id_hub]
+  date_receipt date
+  last_service date
+  last_service_cost decimal
+  inventory_number varchar [unique]
+  name varchar
+  status varchar
+  wear_percentage int
+}
+
+Table Members {
+  id_member int [pk]
+  id_hub int [not null, ref: > Fitness_Club.id_hub]
+  full_name varchar
+  phone varchar
+  email varchar
+  birthday date
+}
+
+Table Personal_Training {
+  id_training int [pk]
+  id_member int [not null, ref: > Members.id_member]
+  id_coach int [not null, ref: > Coach.id_coach]
+  date date
+  status varchar
+  time time
+}
+
+Table Training_groups {
+  id_group int [pk]
+  name varchar
+  max_members int
+}
+
+Table Schedule {
+  id_schedule int [pk]
+  id_class int [not null, ref: > Classes.id_class]
+  id_group int [not null, ref: > Training_groups.id_group]
+  date date
+  time time
+  duration int
+}
+
+Table Attendance {
+  id_attendance int [pk]
+  id_member int [not null, ref: > Members.id_member]
+  id_schedule int [not null, ref: > Schedule.id_schedule]
+  status varchar
+
+  indexes {
+    (id_member, id_schedule) [unique]
+  }
+}
+
+Table Progress {
+  id_progress int [pk]
+  id_member int [not null, ref: > Members.id_member]
+  date_current date
+  date_start date
+  start_progress varchar
+  target varchar
+  current_progress varchar
+}
+
+Table Subscription_Type {
+  id_type int [pk]
+  type_name varchar
+}
+
+Table Subscription_Duration {
+  id_duration int [pk]
+  duration_name varchar
+}
+
+Table Prices {
+  id_price int [pk]
+  id_type int [not null, ref: > Subscription_Type.id_type]
+  id_duration int [not null, ref: > Subscription_Duration.id_duration]
+  price decimal
+
+  indexes {
+    (id_type, id_duration) [unique]
+  }
+}
+
+Table Subscription {
+  id_subscription int [pk]
+  id_member int [not null, ref: > Members.id_member]
+  id_price int [not null, ref: > Prices.id_price]
+  start_date date
+  end_date date
+  status varchar
+}
