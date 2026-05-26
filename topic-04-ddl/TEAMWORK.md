@@ -7,10 +7,11 @@
 ## Таблиця внесків
 | Учасник | Роль у команді | Що зроблено | Артефакти / файли |
 |---|---|---|---|
-| ... | ... | ... | ... |
-| ... | ... | ... | ... |
-| ... | ... | ... | ... |
-
+| МАКСИМ | створення таблиць | Створено fitness_club; equipment | ... |
+| АРТЕМ | створення таблиць | personal_training; coach; coach_specialization; specialization | ... |
+| АНДРIЙ | створення таблиць | schedule; training_groups; classes; coach_class | ... |
+| КИРИЛО | створення таблиць| attendance; members; progress  | ... |
+| АНТОН | створення таблиць | subscription; subscription_type; subscription_duration; prices| ... |
 ## Контекст теми
 Опишіть, хто відповідав за: створення таблиць, PK/FK, constraints, indexes, порядок секцій у `ddl.sql` та перевірку виконання скрипта у PostgreSQL.
 
