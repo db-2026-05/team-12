@@ -27,6 +27,9 @@
 -- ================================================================
 
 -- Add your DML below this line
+
+--- Bozhok Anton
+--- Таблиця 'classes' 
 INSERT INTO classes (class_id, class_name) VALUES 
 (1, 'Cycling'), (2, 'Cross-Fit'), (3, 'Pilates'),
 
@@ -36,9 +39,7 @@ INSERT INTO classes (class_id, class_name) VALUES
 
 (10, 'Swimming');
 
-SELECT *
-FROM classes;
-
+--- Таблиця 'training_groups'
 INSERT INTO training_groups 
 SELECT class_id, class_name
 FROM classes;
@@ -65,6 +66,7 @@ UPDATE training_groups
 SET name = 'Box children'
 WHERE group_id = 6;
 
+--- Таблиця 'schedule'
 INSERT INTO schedule (schedule_id, class_id, group_id, starts_at, ends_at) VALUES
 
 (1, 1, 1, '2026-06-01 08:00:00', '2026-06-01 09:00:00'),   
@@ -87,6 +89,8 @@ INSERT INTO schedule (schedule_id, class_id, group_id, starts_at, ends_at) VALUE
 
 (15, 10, 10, '2026-06-05 15:00:00', '2026-06-05 16:00:00');
 
+
+--- Таблиця 'attendance'
 INSERT INTO attendance (schedule_id, member_id, status) VALUES
 
 (1, 1, 'present'), (1, 5, 'present'), (1, 6, 'present'), (1, 7, 'absent'),
