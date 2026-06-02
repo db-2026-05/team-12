@@ -160,10 +160,10 @@ create table public.members (
 --- Rows From Members
 INSERT INTO "public"."members" ("member_id", "first_name", "phone", "email", "birthday", "hub_id", "last_name") VALUES (1, 'Kyrylo', '+380951930507', 'kirillsheyn221@gmail.com', '2005-08-24', 1, 'Shein'), (5, 'Roman', '+380661821232', 'loker123@gmail.com', '2000-12-11', 1, 'Golovach'), (6, 'John', '+380731442329', 'johndoe@gmail.com', '1999-09-09', 1, 'Doe'), (7, 'Vladyslav', '+380952414712', null, '2005-08-24', 1, 'Maksymenko'), (8, 'Timur', '+380684122131', 'kradiymindich@ukr.net', '1986-01-31', 1, 'Mindich'), (9, 'Natalya', '+380689991337', 'logis111@gmail.com', '1990-06-21', 1, 'Shepel'), (10, 'Valentin', '+380686614256', 'tinetakaya@gmail.com', '1999-05-22', 1, 'Strykalo'), (11, 'Viktor', '+380979741501', 'lublukamazi@gmail.com', '1950-07-09', 1, 'Yanik'), (12, 'Iliya', '+380990260612', 'vlobisvistit@gmail.com', '1977-06-02', 1, 'Kiva'), (13, 'Aleksey', '+380990212332', 'tetkoz@gmail.com', '2000-02-27', 1, 'Teterya');
 
-
-
 --- Baloban Artem ---
 --- Tables: Coach, Personal_training, Coach_class, Coach_specialization ---
+
+--- Remade Table Coach ---
 CREATE TABLE coach (
     coach_id INT4 GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     hub_id INT4 NOT NULL,
@@ -177,31 +177,6 @@ CREATE TABLE coach (
     certification VARCHAR(150),
     is_active BOOLEAN NOT NULL DEFAULT true,
     CONSTRAINT fk_coach_hub FOREIGN KEY (hub_id) REFERENCES fitness_club(hub_id)
-);
-
-CREATE TABLE coach_specialization (
-    coach_id INT4 NOT NULL,
-    specialization_id INT4 NOT NULL,
-    PRIMARY KEY (coach_id, specialization_id),
-    CONSTRAINT fk_coach_specialization_coach FOREIGN KEY (coach_id) REFERENCES coach(coach_id) ON DELETE CASCADE,
-    CONSTRAINT fk_coach_specialization_spec FOREIGN KEY (specialization_id) REFERENCES specialization(specialization_id) ON DELETE CASCADE
-);
-
-CREATE TABLE personal_training (
-    training_id INT4 GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    member_id INT8 NOT NULL,
-    coach_id INT4 NOT NULL,
-    starts_at TIMESTAMP NOT NULL,
-    ends_at TIMESTAMP NOT NULL,
-    CONSTRAINT fk_personal_training_member FOREIGN KEY (member_id) REFERENCES members(member_id) ON DELETE CASCADE,
-    CONSTRAINT fk_personal_training_coach FOREIGN KEY (coach_id) REFERENCES coach(coach_id) ON DELETE CASCADE
-);
-
-CREATE TABLE coach_class (
-  class_id INT NOT NULL,
-  coach_id INT NOT NULL,
-  FOREIGN KEY (class_id) references classes(class_id),
-  FOREIGN KEY (coach_id) references coach(coach_id)
 );
 
 INSERT INTO coach (hub_id, first_name, last_name, phone, email, birthday, education, address, certification, is_active)
