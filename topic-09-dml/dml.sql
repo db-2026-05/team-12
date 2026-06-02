@@ -231,3 +231,71 @@ VALUES
 (8, 8),
 (9, 9),
 (10, 10)
+
+
+--- Samsonov Maxym
+--- Створював Таблицю: club_work_schedule
+--- Заповнював таблиці: fitness_Club, equipment, club_work_schedule
+
+--- Створення та заповнення таблиці 'club_work_schedule':
+
+CREATE TABLE club_work_schedule (
+  schedule_id BIGSERIAL PRIMARY KEY,
+  hub_id BIGINT NOT NULL,
+  day_of_week VARCHAR(20) NOT NULL,
+  opening_time TIME NOT NULL,
+  closing_time TIME NOT NULL,
+
+  CONSTRAINT fk_schedule_fitness_club
+    FOREIGN KEY (hub_id)
+    REFERENCES fitness_club(hub_id)
+);
+
+INSERT INTO club_work_schedule (hub_id, day_of_week, opening_time, closing_time)
+VALUES
+(1, 'Monday', '08:00', '22:00'),
+(1, 'Tuesday', '08:00', '22:00'),
+(1, 'Wednesday', '08:00', '22:00'),
+(1, 'Thursday', '08:00', '22:00'),
+(1, 'Friday', '08:00', '22:00'),
+(1, 'Saturday', '09:00', '20:00'),
+(1, 'Sunday', '09:00', '20:00');
+
+--- Перероблення та заповнення таблиці 'fitness_club':
+
+CREATE TABLE fitness_club (
+  hub_id BIGSERIAL PRIMARY KEY,
+  city VARCHAR(50),
+  street VARCHAR(100),
+  building VARCHAR(20),
+  phone VARCHAR(20)
+);
+
+INSERT INTO fitness_club (city, street, building, phone)
+VALUES ('Kyiv', 'Khreshchatyk Street', '21', '+380671234567');
+
+--- Заповнення таблиці equipment:
+
+INSERT INTO equipment (
+  hub_id,
+  date_receipt,
+  last_service,
+  inventory_number,
+  name,
+  status,
+  wear_percentage
+)
+VALUES
+(1, '2024-01-15', '2025-01-10', 'EQ-001', 'Treadmill', 'in usage', 12.50),
+(1, '2024-02-20', '2025-02-15', 'EQ-002', 'Exercise Bike', 'in usage', 8.00),
+(1, '2023-11-05', '2024-12-01', 'EQ-003', 'Bench Press', 'in usage', 18.30),
+(1, '2023-09-12', '2024-10-20', 'EQ-004', 'Leg Press Machine', 'repairing', 35.00),
+(1, '2024-03-18', '2025-03-10', 'EQ-005', 'Dumbbell Set', 'in usage', 5.20),
+(1, '2023-07-25', '2024-08-15', 'EQ-006', 'Smith Machine', 'in usage', 22.75),
+(1, '2024-04-02', '2025-04-01', 'EQ-007', 'Rowing Machine', 'in usage', 9.40),
+(1, '2022-12-10', '2024-06-05', 'EQ-008', 'Cable Crossover', 'repairing', 41.60),
+(1, '2024-05-14', '2025-05-01', 'EQ-009', 'Pull-up Bar', 'in storage', 6.00),
+(1, '2023-06-30', '2024-07-12', 'EQ-010', 'Elliptical Trainer', 'in usage', 27.80);
+
+
+
