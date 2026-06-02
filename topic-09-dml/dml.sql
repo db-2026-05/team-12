@@ -119,3 +119,35 @@ INSERT INTO attendance (schedule_id, member_id, status) VALUES
 
 (15, 10, 'present'), (15, 11, 'present'), (15, 12, 'absent');
 
+
+--- Таблица  'measurements'
+create table public.measurements (
+  measurement_id bigserial not null,
+  member_id bigint not null,
+  metric_type character varying(50) not null,
+  value numeric(8, 2) not null,
+  unit character varying(20) not null,
+  measured_at timestamp with time zone not null default CURRENT_TIMESTAMP,
+  constraint measurements_pkey primary key (measurement_id),
+  constraint fk_measurements_member foreign KEY (member_id) references members (member_id)
+);
+
+INSERT INTO "public"."measurements" ("measurement_id", "member_id", "metric_type", "value", "unit", "measured_at") VALUES (1, 1, 'weight', '92.70', 'kg', '2026-06-02 18:55:28.059317+00'), (2, 1, 'body_fat', '24.00', '%', '2026-06-02 18:55:28.059317+00'), (3, 1, 'biceps', '36.00', 'cm', '2026-06-02 18:55:28.059317+00'), (7, 5, 'weight', '101.00', 'kg', '2026-06-02 18:57:16.389748+00'), (8, 5, 'body_fat', '21.00', '%', '2026-06-02 18:57:16.389748+00'), (9, 5, 'biceps', '38.40', 'cm', '2026-06-02 18:57:16.389748+00'), (10, 6, 'weight', '66.40', 'kg', '2026-06-02 18:59:12.489496+00'), (11, 6, 'body_fat', '21.00', '%', '2026-06-02 18:59:12.489496+00'), (12, 6, 'biceps', '34.00', 'cm', '2026-06-02 18:59:12.489496+00'), (13, 7, 'weight', '67.60', 'kg', '2026-06-02 19:00:46.33812+00'), (14, 7, 'body_fat', '19.00', '%', '2026-06-02 19:00:46.33812+00'), (15, 7, 'biceps', '34.70', 'cm', '2026-06-02 19:00:46.33812+00'), (16, 8, 'weight', '110.00', 'kg', '2026-06-02 19:02:00.143453+00'), (17, 8, 'body_fat', '28.00', '%', '2026-06-02 19:02:00.143453+00'), (18, 8, 'biceps', '36.00', 'cm', '2026-06-02 19:02:00.143453+00'), (19, 9, 'weight', '65.00', 'kg', '2026-06-02 19:02:48.560242+00'), (20, 9, 'body_fat', '21.00', '%', '2026-06-02 19:02:48.560242+00'), (21, 9, 'biceps', '30.00', 'cm', '2026-06-02 19:02:48.560242+00'), (22, 13, 'weight', '77.70', 'kg', '2026-06-02 19:03:52.693467+00'), (23, 13, 'body_fat', '18.00', '%', '2026-06-02 19:03:52.693467+00'), (24, 13, 'biceps', '36.70', 'cm', '2026-06-02 19:03:52.693467+00');
+
+
+--- Таблица 'Members'
+create table public.members (
+  member_id bigserial not null,
+  first_name character varying(50) not null,
+  phone character varying(18) not null,
+  email character varying(100) null,
+  birthday date not null,
+  hub_id integer null,
+  last_name character varying not null,
+  constraint members_pkey primary key (member_id),
+  constraint members_email_key unique (email),
+  constraint members_phone_key unique (phone),
+  constraint members_hub_id_fkey foreign KEY (hub_id) references fitness_club (hub_id)
+);
+
+INSERT INTO "public"."members" ("member_id", "first_name", "phone", "email", "birthday", "hub_id", "last_name") VALUES (1, 'Kyrylo', '+380951930507', 'kirillsheyn221@gmail.com', '2005-08-24', 1, 'Shein'), (5, 'Roman', '+380661821232', 'loker123@gmail.com', '2000-12-11', 1, 'Golovach'), (6, 'John', '+380731442329', 'johndoe@gmail.com', '1999-09-09', 1, 'Doe'), (7, 'Vladyslav', '+380952414712', null, '2005-08-24', 1, 'Maksymenko'), (8, 'Timur', '+380684122131', 'kradiymindich@ukr.net', '1986-01-31', 1, 'Mindich'), (9, 'Natalya', '+380689991337', 'logis111@gmail.com', '1990-06-21', 1, 'Shepel'), (10, 'Valentin', '+380686614256', 'tinetakaya@gmail.com', '1999-05-22', 1, 'Strykalo'), (11, 'Viktor', '+380979741501', 'lublukamazi@gmail.com', '1950-07-09', 1, 'Yanik'), (12, 'Iliya', '+380990260612', 'vlobisvistit@gmail.com', '1977-06-02', 1, 'Kiva'), (13, 'Aleksey', '+380990212332', 'tetkoz@gmail.com', '2000-02-27', 1, 'Teterya');
