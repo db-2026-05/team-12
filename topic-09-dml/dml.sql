@@ -29,6 +29,7 @@
 -- Add your DML below this line
 
 --- Bozhok Anton
+--- Заповнював таблиці: classes, training_groups, schedule, attendance
 --- Таблиця 'classes' 
 INSERT INTO classes (class_id, class_name) VALUES 
 (1, 'Cycling'), (2, 'Cross-Fit'), (3, 'Pilates'),
