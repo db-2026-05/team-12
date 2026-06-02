@@ -33,3 +33,10 @@
 -- Add your CREATE VIEW statements below this line
 
 
+--Bozhok Anton
+--Не дозволяє зробити дитячу групу занадто великою або змінити дитячу групу на дорослу
+CREATE OR REPLACE VIEW children_groups_view AS
+SELECT group_id, name, max_members
+FROM training_groups
+WHERE name LIKE '%children%' AND max_members <= 8
+WITH CHECK OPTION;
