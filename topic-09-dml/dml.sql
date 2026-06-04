@@ -160,9 +160,10 @@ create table public.members (
 --- Rows From Members
 INSERT INTO "public"."members" ("member_id", "first_name", "phone", "email", "birthday", "hub_id", "last_name") VALUES (1, 'Kyrylo', '+380951930507', 'kirillsheyn221@gmail.com', '2005-08-24', 1, 'Shein'), (5, 'Roman', '+380661821232', 'loker123@gmail.com', '2000-12-11', 1, 'Golovach'), (6, 'John', '+380731442329', 'johndoe@gmail.com', '1999-09-09', 1, 'Doe'), (7, 'Vladyslav', '+380952414712', null, '2005-08-24', 1, 'Maksymenko'), (8, 'Timur', '+380684122131', 'kradiymindich@ukr.net', '1986-01-31', 1, 'Mindich'), (9, 'Natalya', '+380689991337', 'logis111@gmail.com', '1990-06-21', 1, 'Shepel'), (10, 'Valentin', '+380686614256', 'tinetakaya@gmail.com', '1999-05-22', 1, 'Strykalo'), (11, 'Viktor', '+380979741501', 'lublukamazi@gmail.com', '1950-07-09', 1, 'Yanik'), (12, 'Iliya', '+380990260612', 'vlobisvistit@gmail.com', '1977-06-02', 1, 'Kiva'), (13, 'Aleksey', '+380990212332', 'tetkoz@gmail.com', '2000-02-27', 1, 'Teterya');
 
---- Baloban Artem ---
---- Tables: Coach, Personal_training, Coach_class, Coach_specialization ---
+                                                          
+                                                           --- Baloban Artem ---
 
+--- Tables: Coach, Personal_training, Coach_class, Coach_specialization ---
 --- Remade Table Coach ---
 CREATE TABLE coach (
     coach_id INT4 GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
