@@ -31,4 +31,22 @@
 
 -- Add your script below this line
 
+--Anton Bozhok
+-- Роль яка дозволяє юзеру керувати групами та їх учасниками, наприклад: створювати нові групи, змінювати кількість учасників і так далі.
+
+CREATE ROLE group_manager;
+
+CREATE USER manager WITH PASSWORD 'qwertyui';
+
+GRANT group_manager TO manager;
+
+GRANT USAGE ON SCHEMA public TO group_manager;
+
+GRANT SELECT, UPDATE, INSERT, DELETE ON public.training_groups TO group_manager;
+
+GRANT SELECT, UPDATE, INSERT, DELETE ON public.group_members TO group_manager;
+
+GRANT SELECT, UPDATE, INSERT, DELETE ON public.children_groups_view TO group_manager;
+
+
 
