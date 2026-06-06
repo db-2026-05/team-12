@@ -122,3 +122,47 @@ JOIN coach c
 
 SELECT * FROM personal_training_details;
 
+--- Kyrylo Shein
+--- Tasks:
+--- 7) A view that selects from another view, for example, a summary view based on a detailed view. 
+
+--- Schedule details
+CREATE VIEW schedule_attendance_details AS
+SELECT
+    s.schedule_id,
+    c.class_name,
+    tg.name AS group_name,
+    co.first_name || ' ' || co.last_name AS coach_name,
+    m.member_id,
+    m.first_name || ' ' || m.last_name AS member_name,
+    s.starts_at,
+    s.ends_at,
+    a.status AS status
+FROM schedule s
+JOIN classes c
+    ON s.class_id = c.class_id
+JOIN training_groups tg
+    ON s.group_id = tg.group_id
+JOIN coach co
+    ON s.coach_id = co.coach_id
+JOIN group_members gm
+    ON tg.group_id = gm.group_id
+JOIN members m
+    ON gm.member_id = m.member_id
+LEFT JOIN attendance a
+    ON a.schedule_id = s.schedule_id
+   AND a.member_id = m.member_id;
+
+--- Attendance Summary for every member
+CREATE VIEW member_attendance_summary AS
+SELECT
+    member_id,
+    member_name,
+    COUNT(*) AS total_scheduled_classes,
+    COUNT(*) FILTER (WHERE status = 'present') AS present_count,
+    COUNT(*) FILTER (WHERE status = 'absent') AS absent_count
+FROM schedule_attendance_details
+GROUP BY
+    member_id,
+    member_name;
+
