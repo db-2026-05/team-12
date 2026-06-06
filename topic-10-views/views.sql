@@ -69,3 +69,56 @@ group by c.coach_id, c.first_name
 having count(pt.member_id) > (select avg(cnt) from (select count(member_id) as cnt from personal_training group by coach_id) sub);
 
 select * from count_members_in_coach;
+
+
+--- Samsonov Maxym
+--- Tasks:
+--- 1. Mixed views — combining both column and row selection, for example, a view showing active members and their contact information.
+--- 2. Views that use UNION operations, for example, a view combining current and past reservations.
+--- 3. Joined view.
+
+CREATE VIEW equipment_in_usage AS
+SELECT
+    equipment_id,
+    inventory_number,
+    name,
+    wear_percentage
+FROM equipment
+WHERE status = 'in usage';
+
+SELECT * FROM equipment_in_usage;
+
+CREATE VIEW club_training_schedule AS
+
+SELECT
+    starts_at,
+    ends_at,
+    'Personal Training' AS training_type
+FROM personal_training
+
+UNION
+
+SELECT
+    starts_at,
+    ends_at,
+    'Group Training' AS training_type
+FROM schedule;
+
+SELECT * FROM club_training_schedule
+ORDER BY starts_at;
+
+CREATE VIEW personal_training_details AS
+SELECT
+    pt.training_id,
+    m.first_name || ' ' || m.last_name AS member_name,
+    c.first_name || ' ' || c.last_name AS coach_name,
+    pt.starts_at,
+    pt.ends_at
+FROM personal_training pt
+JOIN members m
+    ON pt.member_id = m.member_id
+JOIN coach c
+    ON pt.coach_id = c.coach_id;
+
+SELECT * FROM personal_training_details;
+
