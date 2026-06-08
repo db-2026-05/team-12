@@ -10,6 +10,9 @@
 |АРТЕМ|Розробник Views для тренерського модуля|Створив 3 VIEW: coach_view_city (вертикальна + горизонтальна фільтрація тренерів за містом), personal_view_data (JOIN трьох таблиць з фільтрацією по даті), count_members_in_coach (підзапит + HAVING для відображення тренерів з кількістю клієнтів вище середнього). Перевірив коректність всіх запитів через SELECT|views.sql|
 | МАКСИМ | Розробник Views для модуля Fitness Club | Створив 3 VIEW: equipment_in_usage (фільтрація обладнання за статусом — row-based view), club_training_schedule (об’єднання розкладів через UNION для різних типів тренувань), personal_training_details (JOIN кількох таблиць для відображення деталей персональних тренувань). Реалізував mixed views, UNION views та joined view. Перевірив коректність усіх запитів через SELECT. | views.sql |
 | ... | ... | ... | ... |
+| АНДРІЙ | Розробник Views для модуля абонементів | Створив 2 VIEW: members_contacts (horizontal view для відображення даних учасників та їх контактної інформації), active_subscriptions (vertical view з фільтрацією активних абонементів за статусом). Реалізував horizontal та vertical views. Перевірив коректність усіх запитів через SELECT. | views.sql |
+| ... | ... | ... | ... |
+
 
 ## Контекст теми
 Опишіть, хто відповідав за: horizontal/vertical/mixed views, join/subquery/UNION views, view-from-view, `WITH CHECK OPTION`, а також demo-`SELECT` і структуру `views.sql`.
