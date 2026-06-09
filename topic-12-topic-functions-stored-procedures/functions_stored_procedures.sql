@@ -42,4 +42,43 @@
 
 -- Add your functions and procedures below this line
 
+--Anton Bozhok
+--Функція обрахунку поточної кількості учасників групи
+CREATE OR REPLACE FUNCTION public.count_group_members (_group_id BIGINT)
+RETURNS INT AS $$
+DECLARE 
+  members_quantity INT;
+BEGIN 
+  SELECT COUNT(member_id) INTO members_quantity
+  FROM group_members
+  WHERE group_id = _group_id;
+  RETURN members_quantity;
+END;
+$$ LANGUAGE plpgsql;
+
+--Перевірка
+SELECT public.count_group_members(1);
+
+SELECT public.count_group_members(6);
+
+--Процедура для внесення даних про нову групу
+CREATE OR REPLACE PROCEDURE public.create_group(
+  id BIGINT,
+  group_name varchar(30),
+  max_group_members INT = 8
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN 
+  INSERT INTO training_groups VALUES(id, group_name, max_group_members);
+END;
+$$;
+
+--Перевірка
+CALL create_group (12, 'Swimming Children Group', 4);
+
+SELECT * 
+FROM training_groups
+WHERE group_id = 12;
 
