@@ -68,3 +68,8 @@ GRANT SELECT ON personal_training TO club_staff_reader;
 CREATE USER club_staff_user WITH PASSWORD 'club_staff_123';
 
 GRANT club_staff_reader TO club_staff_user;
+
+SELECT grantee, table_name, privilege_type
+FROM information_schema.table_privileges
+WHERE grantee = 'club_staff_reader'
+ORDER BY table_name, privilege_type;
