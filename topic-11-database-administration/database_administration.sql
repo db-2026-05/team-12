@@ -48,5 +48,23 @@ GRANT SELECT, UPDATE, INSERT, DELETE ON public.group_members TO group_manager;
 
 GRANT SELECT, UPDATE, INSERT, DELETE ON public.children_groups_view TO group_manager;
 
+--- Samsonov Maxym
+--- Створив роль для працівника рецепції / адміністратора клубу, ця роль може тільки читати/переглядати основну інформацію.
 
+CREATE ROLE club_staff_reader;
 
+GRANT USAGE ON SCHEMA public TO club_staff_reader;
+
+GRANT SELECT ON fitness_club TO club_staff_reader;
+GRANT SELECT ON club_work_schedule TO club_staff_reader;
+GRANT SELECT ON members TO club_staff_reader;
+GRANT SELECT ON coach TO club_staff_reader;
+GRANT SELECT ON classes TO club_staff_reader;
+GRANT SELECT ON training_groups TO club_staff_reader;
+GRANT SELECT ON schedule TO club_staff_reader;
+GRANT SELECT ON attendance TO club_staff_reader;
+GRANT SELECT ON personal_training TO club_staff_reader;
+
+CREATE USER club_staff_user WITH PASSWORD 'club_staff_123';
+
+GRANT club_staff_reader TO club_staff_user;
