@@ -73,3 +73,38 @@ SELECT grantee, table_name, privilege_type
 FROM information_schema.table_privileges
 WHERE grantee = 'club_staff_reader'
 ORDER BY table_name, privilege_type;
+
+
+                                                         --- Baloban Artem ---
+Create ROLE personal_key;
+Create USER user_artem WITH password '123456';
+GRANT personal_key to user_artem;
+GRANT Connect on DATABASE postgres TO personal_key;
+ 
+Grant Select on table coach to personal_key;
+Grant Select, Insert on table specialization to personal_key;
+Grant Select, Update on table personal_training to personal_key;
+
+Create policy "artem can select coach" on coach for select to personal_key using(true);
+Create policy "artem can select specialization" on specialization for select to personal_key using(true);
+Create policy "artem can select personal_training" on personal_training for select to personal_key using(true);
+
+DROP POLICY IF EXISTS "artem can select coach" ON coach;
+DROP POLICY IF EXISTS "artem can select specialization" ON specialization;
+DROP POLICY IF EXISTS "artem can select personal_training" ON personal_training;
+
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM personal_key;
+REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public FROM personal_key;
+REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public FROM personal_key;
+REVOKE ALL PRIVILEGES ON DATABASE postgres FROM personal_key;
+REVOKE CONNECT ON DATABASE postgres FROM personal_key;
+
+REVOKE personal_key FROM user_artem;
+
+DROP ROLE personal_key;
+
+DROP USER user_artem;
+DROP ROLE personal_key;
+
+SELECT rolname FROM pg_roles WHERE rolname = 'personal_key';
+SELECT usename FROM pg_user WHERE usename = 'user_artem';
