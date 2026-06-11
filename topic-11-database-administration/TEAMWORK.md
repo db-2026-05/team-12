@@ -10,6 +10,8 @@
 | МАКСИМ | Адміністратор бази даних | Виконав завдання з database administration: створив роль `club_staff_reader`, створив користувача `club_staff_user`, надав ролі права `SELECT` на основні таблиці бази даних фітнес-клубу, призначив роль користувачу, додав перевірки створення ролі/користувача та перевірки виданих privileges. | administration.sql |
 | АРТЕМ | Адміністратор бази даних | Виконав завдання з database administration: створив роль personal_key, створив користувача user_artem, надав ролі права CONNECT на базу даних та SELECT/INSERT/UPDATE на робочі таблиці (coach, specialization, personal_training), призначив роль користувачу, додав політики RLS (row-level security) для кожної таблиці, реалізував optional cleanup (видалення політик, відкликання привілеїв, видалення ролі та користувача) та перевірки існування ролі/користувача через системні каталоги pg_roles і pg_user. | database_administration.sql |
 | ... | ... | ... | ... |
+| АНДРІЙ | Адміністратор бази даних | Виконав завдання з database administration: створив роль subscription_manager, створив користувача subscription_user, надав ролі права CONNECT на базу даних та SELECT/INSERT/UPDATE на таблиці модуля абонементів (subscription, prices, duration, type). Призначив роль користувачу, виконав перевірку створення ролі та користувача через системні каталоги PostgreSQL, перевірив коректність виданих privileges. | subscription_administration.sql |
+| ... | ... | ... | ... |
 
 ## Контекст теми
 Опишіть, хто відповідав за: створення ролей і користувачів, `GRANT`/`REVOKE`, логіку least privilege, тестування прав доступу та optional cleanup у `database_administration.sql`.
