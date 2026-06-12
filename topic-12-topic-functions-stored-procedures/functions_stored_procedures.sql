@@ -82,3 +82,53 @@ SELECT *
 FROM training_groups
 WHERE group_id = 12;
 
+
+--- Samsonov Maxym
+--- Функція для підрахунку кількості обладнання за статусом
+CREATE OR REPLACE FUNCTION public.count_equipment_by_status(_status VARCHAR)
+RETURNS INT AS $$
+DECLARE
+  equipment_quantity INT;
+BEGIN
+  SELECT COUNT(equipment_id) INTO equipment_quantity
+  FROM equipment
+  WHERE status = _status::equipment_status;
+
+  RETURN equipment_quantity;
+END;
+$$ LANGUAGE plpgsql;
+
+--- Перевірка
+SELECT public.count_equipment_by_status('in usage');
+
+SELECT public.count_equipment_by_status('repairing');
+
+SELECT public.count_equipment_by_status('in storage');
+
+--- Процедура для оновлення статусу обладнання
+CREATE OR REPLACE PROCEDURE public.update_equipment_status(
+  inv_number VARCHAR,
+  new_status VARCHAR
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  UPDATE equipment
+  SET status = new_status::equipment_status
+  WHERE inventory_number = inv_number;
+END;
+$$;
+
+--- Перевірка до оновлень
+SELECT *
+FROM equipment
+WHERE inventory_number = 'EQ-004';
+
+--- Виклик процедури
+CALL public.update_equipment_status('EQ-004', 'in usage');
+
+--- Перевірка після оновлень
+SELECT *
+FROM equipment
+WHERE inventory_number = 'EQ-004';
